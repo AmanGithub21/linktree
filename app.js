@@ -3,9 +3,10 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
 
-const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const linktreeRoutes = require("./routes/linktreeRoutes");
 
 mongoose
     .connect("mongodb://127.0.0.1:27017/linktreeDB")
@@ -18,12 +19,13 @@ mongoose
 
 app.use(express.static("client/"));
 app.use(express.json());
+app.use(cors());
 
-app.use("/user", userRoutes);
-app.use("/", authRoutes);
+app.use("/account", authRoutes);
+app.use("/:username/linktree", linktreeRoutes);
 
 app.get("/", (req, res) => {
-    return res.write("<h1>Hello Linktree</h1>");
+    return res.send("<h1>Hello Linktree</h1>");
 });
 
 app.listen(8080, (req, res) => {

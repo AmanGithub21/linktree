@@ -1,10 +1,16 @@
-import "./App.css";
+import "./css/App.css";
+import Linktree from "./Linktree";
+
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">Hello! I am App.js Header</header>
-        </div>
+        // PROXY not working
+        <BrowserRouter>
+            <div className="App">
+                <Linktree />
+            </div>
+        </BrowserRouter>
     );
 }
 

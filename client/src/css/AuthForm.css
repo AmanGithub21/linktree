@@ -1,0 +1,23 @@
+.active {
+    color: grey;
+    border: 1px solid blue;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-button {
+    padding: 1rem 3rem 1rem;
+    border: 1px solid inherit;
+    font-size: 1.2rem;
+}

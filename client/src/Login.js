@@ -8,8 +8,10 @@ import { LogginContext } from "./Linktree";
 function Login() {
     const context = useContext(LogginContext);
     const history = useHistory();
-    const [username, handleChangeUsername] = useHandleChange("");
-    const [password, handleChangePassword] = useHandleChange("");
+    const [username, handleChangeUsername, handleResetUsername] =
+        useHandleChange("");
+    const [password, handleChangePassword, handleResetPassword] =
+        useHandleChange("");
     const handleSubmit = async (e) => {
         e.preventDefault();
         const res = await axios.post("http://localhost:8080/account/login", {
@@ -17,7 +19,15 @@ function Login() {
             password,
         });
         window.localStorage.setItem("userdata", JSON.stringify(res.data));
+
+        const linktree = await axios.get(
+            `http://localhost:8080/linktree/${res.data._id}`
+        );
+        window.localStorage.setItem("linktree", JSON.stringify(linktree.data));
+
         context.setLoggedIn(true);
+        handleResetUsername();
+        handleResetPassword();
         history.push("/home");
     };
     return (

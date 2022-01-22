@@ -10,6 +10,7 @@ function Navbar() {
     const history = useHistory();
     const logout = () => {
         window.localStorage.removeItem("userdata");
+        window.localStorage.removeItem("linktree");
         context.setLoggedIn(false);
         history.push("/");
     };

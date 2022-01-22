@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import AuthForm from "./AuthForm";
 import Home from "./Home";
+import Profile from "./Profile";
 
 export const LogginContext = React.createContext();
 function Linktree() {
@@ -11,22 +12,28 @@ function Linktree() {
     useEffect(() => {
         if (window.localStorage.getItem("userdata")) setLoggedIn(true);
     }, [loggedIn]);
+    // Route for publishing for the linktree
     return (
         <React.Fragment>
             <LogginContext.Provider value={{ loggedIn, setLoggedIn }}>
                 <Navbar />
-                <Route
-                    path="/"
-                    exact
-                    render={() =>
-                        !loggedIn ? <AuthForm /> : <Redirect to={"/home"} />
-                    }
-                />
-                <Route
-                    path="/home"
-                    exact
-                    render={() => (loggedIn ? <Home /> : <Redirect to={"/"} />)}
-                />
+                <Switch>
+                    <Route
+                        path="/"
+                        exact
+                        render={() =>
+                            !loggedIn ? <AuthForm /> : <Redirect to={"/home"} />
+                        }
+                    />
+                    <Route
+                        path="/home"
+                        exact
+                        render={() =>
+                            loggedIn ? <Home /> : <Redirect to={"/"} />
+                        }
+                    />
+                    <Route path="/:username" exact render={Profile} />
+                </Switch>
             </LogginContext.Provider>
         </React.Fragment>
     );

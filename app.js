@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/account", authRoutes);
-app.use("/:username/linktree", linktreeRoutes);
+app.use("/linktree", linktreeRoutes);
 
 app.get("/", (req, res) => {
     return res.send("<h1>Hello Linktree</h1>");

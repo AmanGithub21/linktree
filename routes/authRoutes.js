@@ -20,6 +20,11 @@ router.post("/signup", async (req, res) => {
             password: await bcrypt.hash(password, saltRounds),
         });
         const result = await user.save();
+        const linktree = new Linktree({
+            tree: [],
+            user: user.id,
+        });
+        await linktree.save();
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json(error);

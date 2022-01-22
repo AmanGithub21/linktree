@@ -1,0 +1,16 @@
+.delete-icon {
+    margin: 0.5rem;
+}
+
+.LinktreeList-item {
+    border: 1px solid black;
+    margin: 30px;
+}
+
+.LinktreeList-text {
+    margin: 0;
+}
+
+.LinktreeList-url {
+    margin: 0;
+}

@@ -9,18 +9,27 @@ import { LogginContext } from "./Linktree";
 function Signup() {
     const context = useContext(LogginContext);
     const history = useHistory();
-    const [username, handleChangeUsername] = useHandleChange("");
-    const [password, handleChangePassword] = useHandleChange("");
+    const [username, handleChangeUsername, handleResetUsername] =
+        useHandleChange("");
+    const [password, handleChangePassword, handleResetPassword] =
+        useHandleChange("");
     // const [repassword, handleChangeRePassword] = useHandleChange("");
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await axios.post("http://localhost:8080/account/signup", {
+        const user = await axios.post("http://localhost:8080/account/signup", {
             username,
             password,
         });
         // I could have used jwt but didn't bothered with it because it's just a dummy project
-        window.localStorage.setItem("userdata", JSON.stringify(res.data));
+        window.localStorage.setItem("userdata", JSON.stringify(user.data));
+
+        const linktree = await axios.get(
+            `http://localhost:8080/linktree/${user.data._id}`
+        );
+        window.localStorage.setItem("linktree", JSON.stringify(linktree.data));
         context.setLoggedIn(true);
+        handleResetUsername();
+        handleResetPassword();
         history.push("/home");
     };
     return (

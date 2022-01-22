@@ -14,28 +14,24 @@ function Linktree() {
     }, [loggedIn]);
     // Route for publishing for the linktree
     return (
-        <React.Fragment>
-            <LogginContext.Provider value={{ loggedIn, setLoggedIn }}>
-                <Navbar />
-                <Switch>
-                    <Route
-                        path="/"
-                        exact
-                        render={() =>
-                            !loggedIn ? <AuthForm /> : <Redirect to={"/home"} />
-                        }
-                    />
-                    <Route
-                        path="/home"
-                        exact
-                        render={() =>
-                            loggedIn ? <Home /> : <Redirect to={"/"} />
-                        }
-                    />
-                    <Route path="/:username" exact render={Profile} />
-                </Switch>
-            </LogginContext.Provider>
-        </React.Fragment>
+        <LogginContext.Provider value={{ loggedIn, setLoggedIn }}>
+            <Navbar />
+            <Switch>
+                <Route
+                    path="/"
+                    exact
+                    render={() =>
+                        !loggedIn ? <AuthForm /> : <Redirect to={"/home"} />
+                    }
+                />
+                <Route
+                    path="/home"
+                    exact
+                    render={() => (loggedIn ? <Home /> : <Redirect to={"/"} />)}
+                />
+                <Route path="/:username" exact render={Profile} />
+            </Switch>
+        </LogginContext.Provider>
     );
 }
 

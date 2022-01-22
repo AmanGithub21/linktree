@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 
 import LinktreeForm from "./LinktreeForm";
 import LinktreeList from "./LinktreeList";
 
 import "./css/Home.css";
+
+export const HelperLinktreeContext = createContext();
 
 function Home() {
     const linktree = JSON.parse(window.localStorage.getItem("linktree"));
@@ -35,14 +37,12 @@ function Home() {
     };
     const updateItem = async (itemId) => {};
     return (
-        <>
+        <HelperLinktreeContext.Provider
+            value={{ tree, deleteItem, updateItem }}
+        >
             <LinktreeForm insertTreeData={insertTreeData} />
-            <LinktreeList
-                tree={tree}
-                deleteItem={deleteItem}
-                updateItem={updateItem}
-            />
-        </>
+            <LinktreeList />
+        </HelperLinktreeContext.Provider>
     );
 }
 

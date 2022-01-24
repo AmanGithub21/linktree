@@ -7,7 +7,14 @@ function LinktreeList() {
     return (
         <div className="LinktreeList">
             {tree.map((item) => {
-                return <LinktreeListItem item={item} deleteItem={deleteItem} />;
+                return (
+                    <LinktreeListItem
+                        key={item.id}
+                        item={item}
+                        deleteItem={deleteItem}
+                        homePage={true}
+                    />
+                );
             })}
         </div>
     );

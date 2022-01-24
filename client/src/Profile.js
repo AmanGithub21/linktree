@@ -23,7 +23,11 @@ class Profile extends Component {
                 ) : (
                     <div>
                         {this.state.tree.map((item) => (
-                            <LinktreeListItem key={item._id} item={item} />
+                            <LinktreeListItem
+                                key={item._id}
+                                item={item}
+                                homePage={false}
+                            />
                         ))}
                     </div>
                 )}

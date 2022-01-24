@@ -38,7 +38,18 @@ function Home() {
         window.localStorage.setItem("linktree", JSON.stringify(res.data));
         setTree(res.data.tree);
     };
-    const updateItem = async (itemId) => {};
+    const updateItem = async (itemId, text, url) => {
+        console.log("itemId, text, url", itemId, text, url);
+        const data = {
+            userId: linktree.user,
+            treeId: itemId,
+            text,
+            url,
+        };
+        const res = await axios.put("http://localhost:8080/linktree", data);
+        window.localStorage.setItem("linktree", JSON.stringify(res.data));
+        setTree(res.data.tree);
+    };
     return (
         <HelperLinktreeContext.Provider
             value={{ tree, deleteItem, updateItem }}

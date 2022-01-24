@@ -17,6 +17,22 @@ function Linktree() {
     return (
         <LogginContext.Provider value={{ loggedIn, setLoggedIn }}>
             <Navbar />
+            <p style={{ backgroundColor: "red" }}>
+                Not the most elegant loogking website. Error handling and
+                Styling are still needed.
+            </p>
+            <p style={{ backgroundColor: "red" }}>
+                Therefore please use unique name like Email ID to signup OR the
+                test Login ID{" "}
+                <i>
+                    <b>a</b>
+                </i>{" "}
+                with password{" "}
+                <i>
+                    <b>a</b>
+                </i>
+                .
+            </p>
             <Switch>
                 <Route
                     path="/"

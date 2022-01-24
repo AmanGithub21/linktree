@@ -16,7 +16,9 @@ function Navbar() {
     };
     return (
         <nav className="navbar">
-            <header className="brand-name">Linktree</header>
+            <header className="brand-name" onClick={() => history.push("/")}>
+                Linktree
+            </header>
             <ul className="nav-item-container">
                 {!context.loggedIn ? (
                     <li className="nav-item">

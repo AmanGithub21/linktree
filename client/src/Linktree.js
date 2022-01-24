@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import AuthForm from "./AuthForm";
 import Home from "./Home";
 import Profile from "./Profile";
+import PageNotFound from "./PageNotFound";
 
 export const LogginContext = React.createContext();
 function Linktree() {
@@ -29,7 +30,8 @@ function Linktree() {
                     exact
                     render={() => (loggedIn ? <Home /> : <Redirect to={"/"} />)}
                 />
-                <Route path="/:username" exact render={Profile} />
+                <Route path="/:username" component={Profile} />
+                <Route path="*" render={PageNotFound} />
             </Switch>
         </LogginContext.Provider>
     );

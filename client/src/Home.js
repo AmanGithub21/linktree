@@ -10,6 +10,9 @@ export const HelperLinktreeContext = createContext();
 
 function Home() {
     const linktree = JSON.parse(window.localStorage.getItem("linktree"));
+    const username = JSON.parse(
+        window.localStorage.getItem("userdata")
+    ).username;
     const [tree, setTree] = useState(linktree.tree);
     const insertTreeData = async (text, url) => {
         const res = await axios.post("http://localhost:8080/linktree", {
@@ -42,6 +45,12 @@ function Home() {
         >
             <LinktreeForm insertTreeData={insertTreeData} />
             <LinktreeList />
+            <p>
+                Your site is hosted at:{" "}
+                <a target="_blank" href={`http://localhost:3000/${username}`}>
+                    <i>{`http://localhost:3000/${username}`}</i>
+                </a>
+            </p>
         </HelperLinktreeContext.Provider>
     );
 }

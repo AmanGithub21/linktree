@@ -7,6 +7,8 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
 const linktreeRoutes = require("./routes/linktreeRoutes");
+const User = require("./models/User");
+const Linktree = require("./models/Linktree");
 
 mongoose
     .connect("mongodb://127.0.0.1:27017/linktreeDB")
@@ -24,7 +26,18 @@ app.use(cors());
 app.use("/account", authRoutes);
 app.use("/linktree", linktreeRoutes);
 
-app.get("/", (req, res) => {
+app.get("/profile/:username", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if (user) {
+            const linktree = await Linktree.findOne({ user: user.id });
+            return res.status(200).json(linktree);
+        } else return res.status(200).json("notfound");
+    } catch (error) {
+        console.log("ERROR IN app.js");
+        return res.status(500).json(error.message);
+    }
+
     return res.send("<h1>Hello Linktree</h1>");
 });
 

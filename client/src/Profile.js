@@ -10,7 +10,7 @@ class Profile extends Component {
     }
     async componentDidMount() {
         const res = await axios.get(
-            `http://localhost:8080/profile/${this.props.match.params.username}`
+            `https://linktree11.herokuapp.com/profile/${this.props.match.params.username}`
         );
         if (res.data === "notfound") this.setState({ notFound: true });
         else this.setState({ tree: res.data.tree });

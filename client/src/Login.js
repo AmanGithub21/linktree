@@ -14,14 +14,17 @@ function Login() {
         useHandleChange("");
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await axios.post("http://localhost:8080/account/login", {
-            username,
-            password,
-        });
+        const res = await axios.post(
+            "https://linktree11.herokuapp.com/account/login",
+            {
+                username,
+                password,
+            }
+        );
         window.localStorage.setItem("userdata", JSON.stringify(res.data));
 
         const linktree = await axios.get(
-            `http://localhost:8080/linktree/${res.data._id}`
+            `https://linktree11.herokuapp.com/linktree/${res.data._id}`
         );
         window.localStorage.setItem("linktree", JSON.stringify(linktree.data));
 

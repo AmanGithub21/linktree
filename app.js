@@ -9,9 +9,10 @@ const authRoutes = require("./routes/authRoutes");
 const linktreeRoutes = require("./routes/linktreeRoutes");
 const User = require("./models/User");
 const Linktree = require("./models/Linktree");
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/linktreeDB";
 
 mongoose
-    .connect("mongodb://127.0.0.1:27017/linktreeDB")
+    .connect(dbUrl)
     .then(() => {
         console.log("DB connected");
     })
@@ -19,7 +20,10 @@ mongoose
         console.log("DB NOT CONNECTED", e);
     });
 
-app.use(express.static("client/"));
+app.use(express.static(path.join(__dirname, "/client/build")));
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+});
 app.use(express.json());
 app.use(cors());
 
@@ -41,6 +45,6 @@ app.get("/profile/:username", async (req, res) => {
     return res.send("<h1>Hello Linktree</h1>");
 });
 
-app.listen(8080, (req, res) => {
+app.listen(process.env.PORT || 8080, (req, res) => {
     console.log("Server running on Port 8080");
 });

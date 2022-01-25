@@ -16,15 +16,18 @@ function Signup() {
     // const [repassword, handleChangeRePassword] = useHandleChange("");
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const user = await axios.post("http://localhost:8080/account/signup", {
-            username,
-            password,
-        });
+        const user = await axios.post(
+            "https://linktree11.herokuapp.com/account/signup",
+            {
+                username,
+                password,
+            }
+        );
         // I could have used jwt but didn't bothered with it because it's just a dummy project
         window.localStorage.setItem("userdata", JSON.stringify(user.data));
 
         const linktree = await axios.get(
-            `http://localhost:8080/linktree/${user.data._id}`
+            `https://linktree11.herokuapp.com/linktree/${user.data._id}`
         );
         window.localStorage.setItem("linktree", JSON.stringify(linktree.data));
         context.setLoggedIn(true);

@@ -14,6 +14,8 @@ function Login() {
         useHandleChange("");
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!username.length || !password.length)
+            return alert("Fill all the entries.");
         const res = await axios.post(
             "https://linktree11.herokuapp.com/account/login",
             {
@@ -21,17 +23,26 @@ function Login() {
                 password,
             }
         );
-        window.localStorage.setItem("userdata", JSON.stringify(res.data));
+        if (
+            res.data === "incorrect password" ||
+            res.data === "user dose not exist"
+        ) {
+            handleResetUsername();
+            handleResetPassword();
+            return alert("Incorrect Credential. Try again");
+        } else {
+            window.sessionStorage.setItem("userdata", JSON.stringify(res.data));
 
-        const linktree = await axios.get(
-            `https://linktree11.herokuapp.com/linktree/${res.data._id}`
-        );
-        window.localStorage.setItem("linktree", JSON.stringify(linktree.data));
-
-        context.setLoggedIn(true);
-        handleResetUsername();
-        handleResetPassword();
-        history.push("/home");
+            const linktree = await axios.post(
+                `https://linktree11.herokuapp.com/linktree/${res.data._id}`
+            );
+            window.sessionStorage.setItem(
+                "linktree",
+                JSON.stringify(linktree.data)
+            );
+            context.setLoggedIn(true);
+            history.push("/home");
+        }
     };
     return (
         <form onSubmit={handleSubmit}>
@@ -53,7 +64,7 @@ function Login() {
                     onChange={handleChangePassword}
                 />
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit">Login</button>
         </form>
     );
 }

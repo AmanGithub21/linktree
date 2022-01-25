@@ -9,12 +9,13 @@ import "./css/Home.css";
 export const HelperLinktreeContext = createContext();
 
 function Home() {
-    const linktree = JSON.parse(window.localStorage.getItem("linktree"));
+    const linktree = JSON.parse(window.sessionStorage.getItem("linktree"));
     const username = JSON.parse(
-        window.localStorage.getItem("userdata")
+        window.sessionStorage.getItem("userdata")
     ).username;
     const [tree, setTree] = useState(linktree.tree);
     const insertTreeData = async (text, url) => {
+        if (!text.length || !url.length) return alert("Fill all the entries.");
         const res = await axios.post(
             "https://linktree11.herokuapp.com/linktree",
             {
@@ -23,8 +24,7 @@ function Home() {
                 url,
             }
         );
-
-        window.localStorage.setItem("linktree", JSON.stringify(res.data));
+        window.sessionStorage.setItem("linktree", JSON.stringify(res.data));
         setTree(res.data.tree);
     };
     const deleteItem = async (itemId) => {
@@ -35,10 +35,10 @@ function Home() {
         await axios.delete("https://linktree11.herokuapp.com/linktree", {
             data,
         });
-        const res = await axios.get(
+        const res = await axios.post(
             `https://linktree11.herokuapp.com/linktree/${linktree.user}`
         );
-        window.localStorage.setItem("linktree", JSON.stringify(res.data));
+        window.sessionStorage.setItem("linktree", JSON.stringify(res.data));
         setTree(res.data.tree);
     };
     const updateItem = async (itemId, text, url) => {
@@ -52,7 +52,7 @@ function Home() {
             "https://linktree11.herokuapp.com/linktree",
             data
         );
-        window.localStorage.setItem("linktree", JSON.stringify(res.data));
+        window.sessionStorage.setItem("linktree", JSON.stringify(res.data));
         setTree(res.data.tree);
     };
     return (

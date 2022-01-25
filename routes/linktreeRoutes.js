@@ -3,19 +3,6 @@ const User = require("../models/User");
 
 const router = require("express").Router({ mergeParams: true });
 
-//get linktree
-router.get("/:userId", async (req, res) => {
-    try {
-        const user = await User.findById(req.params.userId);
-        if (!user) return res.status(405).json("User does not exist");
-
-        const linktree = await Linktree.findOne({ user: req.params.userId });
-        return res.status(200).json(linktree);
-    } catch (e) {
-        return res.status(500).json(e.stack);
-    }
-});
-
 // Add a linktree
 router.post("/", async (req, res) => {
     try {
@@ -42,11 +29,24 @@ router.post("/", async (req, res) => {
         res.status(500).json(e);
     }
 });
+
+//get linktree
+router.post("/:userId", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        if (!user) return res.status(401).json("User does not exist");
+
+        const linktree = await Linktree.findOne({ user: req.params.userId });
+        return res.status(200).json(linktree);
+    } catch (e) {
+        return res.status(500).json(e.stack);
+    }
+});
+
 // delete a linktree
 router.delete("/", async (req, res) => {
     try {
         const { userId, treeId } = req.body;
-        console.log("I RAN", req.body);
         const user = await User.findById(userId);
         if (!user) return res.status(401).json("User does not exist");
 

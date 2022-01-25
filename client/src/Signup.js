@@ -13,9 +13,13 @@ function Signup() {
         useHandleChange("");
     const [password, handleChangePassword, handleResetPassword] =
         useHandleChange("");
-    // const [repassword, handleChangeRePassword] = useHandleChange("");
+    const [repassword, handleChangeRePassword, handleResetRePassword] =
+        useHandleChange("");
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!username.length || !password.length || !repassword.length)
+            return alert("Fill all the entries.");
+        if (repassword !== password) return alert("Rewrite the same password");
         const user = await axios.post(
             "https://linktree11.herokuapp.com/account/signup",
             {
@@ -23,17 +27,29 @@ function Signup() {
                 password,
             }
         );
-        // I could have used jwt but didn't bothered with it because it's just a dummy project
-        window.localStorage.setItem("userdata", JSON.stringify(user.data));
+        if (typeof user.data === "string") {
+            return alert(user.data);
+        } else {
+            // I could have used jwt but didn't bothered with it because it's just a dummy project
+            window.sessionStorage.setItem(
+                "userdata",
+                JSON.stringify(user.data)
+            );
 
-        const linktree = await axios.get(
-            `https://linktree11.herokuapp.com/linktree/${user.data._id}`
-        );
-        window.localStorage.setItem("linktree", JSON.stringify(linktree.data));
-        context.setLoggedIn(true);
-        handleResetUsername();
-        handleResetPassword();
-        history.push("/home");
+            const linktree = await axios.post(
+                `https://linktree11.herokuapp.com/linktree/${user.data._id}`
+            );
+            console.log(linktree, "linktree from the singup.js");
+            window.sessionStorage.setItem(
+                "linktree",
+                JSON.stringify(linktree.data)
+            );
+            context.setLoggedIn(true);
+            handleResetUsername();
+            handleResetPassword();
+            handleResetRePassword();
+            history.push("/home");
+        }
     };
     return (
         <form onSubmit={handleSubmit}>
@@ -63,9 +79,11 @@ function Signup() {
                     type="password"
                     id="repassword"
                     placeholder="Rewrite Password..."
+                    value={repassword}
+                    onChange={handleChangeRePassword}
                 />
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit">Signup</button>
         </form>
     );
 }

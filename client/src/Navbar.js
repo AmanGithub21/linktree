@@ -9,8 +9,8 @@ function Navbar() {
     const context = useContext(LogginContext);
     const history = useHistory();
     const logout = () => {
-        window.localStorage.removeItem("userdata");
-        window.localStorage.removeItem("linktree");
+        window.sessionStorage.removeItem("userdata");
+        window.sessionStorage.removeItem("linktree");
         context.setLoggedIn(false);
         history.push("/");
     };

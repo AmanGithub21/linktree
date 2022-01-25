@@ -5,15 +5,15 @@ const Linktree = require("../models/Linktree");
 const bcrypt = require("bcrypt");
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
-router.get("/", (req, res) => {
-    res.send("hello");
-});
 // create account
 router.post("/signup", async (req, res) => {
     try {
         const { username, password } = req.body;
         const existingUser = await User.findOne({ username });
-        if (existingUser) return res.status(403).send("User already exist");
+        if (existingUser)
+            return res
+                .status(200)
+                .send("User already exist. Please choose another Username");
 
         const user = new User({
             username,
@@ -30,6 +30,22 @@ router.post("/signup", async (req, res) => {
         return res.status(500).json(error);
     }
 });
+
+// authenticate
+router.post("/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
+        if (!user) return res.status(200).json("user dose not exist");
+        const result = await bcrypt.compare(password, user.password);
+        if (result) return res.status(200).json(user);
+        else return res.status(200).json("incorrect password");
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json(error);
+    }
+});
+
 // delete an account
 router.delete("/delete", async (req, res) => {
     try {
@@ -60,21 +76,6 @@ router.put("/edit", async (req, res) => {
         return res.status(200).json("Updated");
     } catch (e) {
         return res.status(500).json(e);
-    }
-});
-// authenticate
-router.post("/login", async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const user = await User.findOne({ username });
-        if (!user) return res.status(403).send("User dosen't exist");
-
-        const result = await bcrypt.compare(password, user.password);
-        if (result) return res.status(200).json(user);
-        else return res.status(403).json("Incorrect Password");
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json(error);
     }
 });
 

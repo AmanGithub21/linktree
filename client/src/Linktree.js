@@ -11,19 +11,15 @@ export const LogginContext = React.createContext();
 function Linktree() {
     const [loggedIn, setLoggedIn] = useState(false);
     useEffect(() => {
-        if (window.localStorage.getItem("userdata")) setLoggedIn(true);
+        if (window.sessionStorage.getItem("userdata")) setLoggedIn(true);
     }, [loggedIn]);
     // Route for publishing for the linktree
     return (
         <LogginContext.Provider value={{ loggedIn, setLoggedIn }}>
             <Navbar />
             <p style={{ backgroundColor: "red" }}>
-                Not the most elegant loogking website. Error handling and
-                Styling are still needed.
-            </p>
-            <p style={{ backgroundColor: "red" }}>
-                Therefore please use unique name like Email ID to signup OR the
-                test Login ID{" "}
+                Please use unique name like Email ID to signup OR the test Login
+                ID{" "}
                 <i>
                     <b>a</b>
                 </i>{" "}

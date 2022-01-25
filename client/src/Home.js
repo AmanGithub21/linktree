@@ -42,6 +42,7 @@ function Home() {
         setTree(res.data.tree);
     };
     const updateItem = async (itemId, text, url) => {
+        // Add spinner or loader with true
         const data = {
             userId: linktree.user,
             treeId: itemId,
@@ -54,6 +55,7 @@ function Home() {
         );
         window.sessionStorage.setItem("linktree", JSON.stringify(res.data));
         setTree(res.data.tree);
+        // Make spinner or loader value false
     };
     return (
         <HelperLinktreeContext.Provider
@@ -63,8 +65,11 @@ function Home() {
             <LinktreeList />
             <p>
                 Your site is hosted at:{" "}
-                <a target="_blank" href={`http://localhost:3000/${username}`}>
-                    <i>{`http://localhost:3000/${username}`}</i>
+                <a
+                    target="_blank"
+                    href={`https://linktree11.herokuapp.com/${username}`}
+                >
+                    <i>{`https://linktree11.herokuapp.com/${username}`}</i>
                 </a>
             </p>
         </HelperLinktreeContext.Provider>

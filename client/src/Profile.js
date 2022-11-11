@@ -4,36 +4,35 @@ import LinktreeListItem from "./LinktreeListItem";
 import { Component } from "react";
 
 class Profile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { tree: [], notFound: false };
-    }
-    async componentDidMount() {
-        const res = await axios.post(
-            `https://linktree11.herokuapp.com/profile/${this.props.match.params.username}`
-        );
-        if (res.data === "notfound") this.setState({ notFound: true });
-        else this.setState({ tree: res.data.tree });
-    }
-    render() {
-        return (
-            <div className="">
-                {this.state.notFound ? (
-                    <PageNotFound />
-                ) : (
-                    <div>
-                        {this.state.tree.map((item) => (
-                            <LinktreeListItem
-                                key={item._id}
-                                item={item}
-                                homePage={false}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = { tree: [], notFound: false };
+  }
+  async componentDidMount() {
+    const res = await axios.post(
+      `https://linktree11.herokuapp.com/profile/${this.props.match.params.username}`
+    );
+    if (res.data === "notfound") this.setState({ notFound: true });
+    else this.setState({ tree: res.data.tree });
+  }
+  render() {
+    return (
+      <div className="text-center">
+        <h1>{this.props.match.params.username}</h1>
+        {this.state.notFound ? (
+          <PageNotFound />
+        ) : (
+          <div>
+            {this.state.tree.map((item) => (
+              <div className="LinktreeListItem p-2">
+                <LinktreeListItem key={item._id} item={item} homePage={false} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
 export default Profile;

@@ -48,8 +48,8 @@ function LinktreeListItem({ item, deleteItem, homePage }) {
           <div className="col-1"></div>
         </div>
       ) : (
-        <div className="">
-          <div key={item._id} className="row LinktreeList-item">
+        <div className="" key={item._id}>
+          <div className="row LinktreeList-item">
             <div className="col-2"></div>
             <div className="col-8">
               <a

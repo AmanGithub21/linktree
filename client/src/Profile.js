@@ -10,7 +10,7 @@ class Profile extends Component {
   }
   async componentDidMount() {
     const res = await axios.post(
-      `https://linktree11.herokuapp.com/profile/${this.props.match.params.username}`
+      `http://localhost:8080/profile/${this.props.match.params.username}`
     );
     if (res.data === "notfound") this.setState({ notFound: true });
     else this.setState({ tree: res.data.tree });
@@ -18,11 +18,11 @@ class Profile extends Component {
   render() {
     return (
       <div className="text-center">
-        <h1>{this.props.match.params.username}</h1>
         {this.state.notFound ? (
           <PageNotFound />
         ) : (
           <div>
+            <h1>{this.props.match.params.username}</h1>
             {this.state.tree.map((item) => (
               <div className="LinktreeListItem p-2">
                 <LinktreeListItem key={item._id} item={item} homePage={false} />

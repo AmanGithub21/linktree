@@ -20,13 +20,10 @@ function Signup() {
     if (!username.length || !password.length || !repassword.length)
       return alert("Fill all the entries.");
     if (repassword !== password) return alert("Rewrite the same password");
-    const user = await axios.post(
-      "https://linktree11.herokuapp.com/account/signup",
-      {
-        username,
-        password,
-      }
-    );
+    const user = await axios.post("http://localhost:8080/account/signup", {
+      username,
+      password,
+    });
     if (typeof user.data === "string") {
       return alert(user.data);
     } else {
@@ -34,7 +31,7 @@ function Signup() {
       window.sessionStorage.setItem("userdata", JSON.stringify(user.data));
 
       const linktree = await axios.post(
-        `https://linktree11.herokuapp.com/linktree/${user.data._id}`
+        `http://localhost:8080/linktree/${user.data._id}`
       );
       console.log(linktree, "linktree from the singup.js");
       window.sessionStorage.setItem("linktree", JSON.stringify(linktree.data));

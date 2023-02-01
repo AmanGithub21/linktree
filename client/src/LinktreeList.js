@@ -13,7 +13,7 @@ function LinktreeList() {
           return (
             <div className="LinktreeListItem">
               <LinktreeListItem
-                key={item.id}
+                key={item._id}
                 item={item}
                 deleteItem={deleteItem}
                 homePage={true}

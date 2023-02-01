@@ -18,7 +18,6 @@ function Linktree() {
     <LogginContext.Provider value={{ loggedIn, setLoggedIn }}>
       <Navbar />
       <br />
-
       <Switch>
         <Route
           path="/"

@@ -1,0 +1,36 @@
+.about-para {
+  font-size: 1.75rem;
+  font-family: "Karla";
+  margin: 3rem auto;
+  width: 65%;
+  text-align: justify;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 1080px) {
+  .about-para {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .about-para {
+    width: 75%;
+    font-size: 1.4rem;
+  }
+
+  .About h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-para {
+    width: 80%;
+    font-size: 1.2rem;
+  }
+
+  .About h2 {
+    font-size: 1.4rem;
+  }
+}

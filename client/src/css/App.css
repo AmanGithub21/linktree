@@ -1,28 +1,70 @@
-.App {
-  /* Again not working */
-  height: 100vh;
-  width: 100vw;
-  /* background-color: rgb(52, 58, 64);
-  color: white; */
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Kaushan+Script&family=Satisfy&display=swap");
+
+.text-decoration-underline {
+  text-decoration: none;
+  text-decoration-color: white;
+  text-underline-offset: 1rem;
+  transition: all 300ms ease;
+  color: black;
+}
+
+.text-decoration-underline:hover {
+  text-decoration: underline;
+  text-underline-offset: 1rem;
+  text-decoration-color: gray;
+  color: gray;
 }
 
 .submit-button {
-  color: gray;
-  background-color: rgb(239, 239, 239);
-  border: 3px solid gray;
-  margin-bottom: 10px;
+  color: white;
+  background-color: rgb(16, 23, 39);
+  border: 2px solid rgb(16, 23, 39);
+  border-radius: 5px;
+  margin: 1.5rem 0;
+  width: 100%;
 }
 
-.submit-button:hover,
+.submit-button:active,
 .submit-button:focus,
-.submit-button:active {
+.submit-button:hover {
   color: black;
   background-color: white;
-  border: 3px solid black;
-  outline: none;
-  box-sizing: none;
+  border: 2px solid rgb(16, 23, 39);
+  border-radius: 5px;
+  box-shadow: none;
 }
 
 .spinner {
   margin-left: 45%;
+}
+
+.plain-text {
+  font-family: "Kaushan Script", cursive;
+  text-align: center;
+  margin: 30px;
+}
+
+.icons {
+  width: 2rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  border-radius: 500px;
+  padding: 8px;
+  transition: all 300ms ease;
+  border: 1px solid white;
+  color: black;
+}
+
+.icons:hover {
+  border: 1px solid rgb(16, 23, 39);
+  border-color: rgb(16, 23, 39);
+}
+
+@media screen and (max-width: 585px) {
+  .site-logo {
+    font-size: 2.5rem;
+  }
+  .About h2 {
+    font-size: 2rem;
+  }
 }

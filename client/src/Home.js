@@ -4,8 +4,6 @@ import axios from "axios";
 import LinktreeForm from "./LinktreeForm";
 import LinktreeList from "./LinktreeList";
 
-import "./css/Home.css";
-
 export const HelperLinktreeContext = createContext();
 
 function Home() {
@@ -58,14 +56,16 @@ function Home() {
   return (
     <HelperLinktreeContext.Provider value={{ tree, deleteItem, updateItem }}>
       <div className="Home">
+        <h4 className="plain-text">Add new!</h4>
         <LinktreeForm insertTreeData={insertTreeData} />
-        <LinktreeList />
-        <p>
-          Your site is hosted at:{" "}
+        <hr />
+        <h5 className="plain-text">
+          Your page is hosted at:{" "}
           <a target="_blank" href={`http://localhost:3000/${username}`}>
-            <i>{`http://localhost:3000/${username}`}</i>
+            {`http://localhost:3000/${username}`}
           </a>
-        </p>
+        </h5>
+        {tree && tree.length && <LinktreeList />}
       </div>
     </HelperLinktreeContext.Provider>
   );

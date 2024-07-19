@@ -3,10 +3,13 @@ import useHandleChange from "./hooks/useHandleChange";
 
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
+import { TextField } from "@mui/material";
 
 import { LogginContext } from "./Linktree";
 
-function Signup() {
+import "./css/AuthForm.css";
+
+function Signup({ toLoginForm }) {
   const context = useContext(LogginContext);
   const history = useHistory();
   const [username, handleChangeUsername, handleResetUsername] =
@@ -43,59 +46,68 @@ function Signup() {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-field">
-        <span htmlFor="username">
-          <i
-            className="ri-account-circle-fill ml-2 mr-2"
-            style={{ fontSize: "1.5rem" }}
-          ></i>
-        </span>
-        <input
-          type="text"
-          id="username"
-          placeholder="Username..."
-          value={username}
-          onChange={handleChangeUsername}
-        />
+    <div className="container">
+      <div className="row d-flex justify-content-center">
+        <form
+          onSubmit={handleSubmit}
+          className="col-lg-3 col-md-6 col-sm-10 col-10"
+        >
+          <TextField
+            id="username"
+            label="Identity"
+            variant="standard"
+            fullWidth
+            size="small"
+            type="text"
+            value={username}
+            onChange={handleChangeUsername}
+            className="form-field mb-3"
+            color="dark"
+            autoFocus
+          />
+          <TextField
+            id="password"
+            label="Password"
+            variant="standard"
+            fullWidth
+            type="password"
+            value={password}
+            onChange={handleChangePassword}
+            className="form-field mb-3"
+            color="dark"
+          />
+          <TextField
+            id="repassword"
+            label="Retype password"
+            variant="standard"
+            fullWidth
+            type="password"
+            value={repassword}
+            onChange={handleChangeRePassword}
+            className="form-field"
+            color="dark"
+          />
+          <button
+            type="submit"
+            className="btn btn-large shadow-none submit-button w-100"
+          >
+            Signup
+          </button>
+          <div className="text-center">
+            <small>
+              {" "}
+              <span className="text-muted">Already have an account? </span>
+              <span
+                className="to-toggle-form-btn"
+                onClick={() => toLoginForm()}
+              >
+                Login!
+              </span>
+            </small>
+          </div>
+        </form>
       </div>
-      <br />
-      <div className="form-field">
-        <span htmlFor="password">
-          <i
-            className="ri-key-fill ml-2 mr-2"
-            style={{ fontSize: "1.5rem" }}
-          ></i>
-        </span>
-        <input
-          type="password"
-          id="password"
-          placeholder="Password..."
-          value={password}
-          onChange={handleChangePassword}
-        />
-      </div>
-      <br />
-      <div className="form-field">
-        <span htmlFor="password">
-          <i
-            className="ri-key-fill ml-2 mr-2"
-            style={{ fontSize: "1.5rem" }}
-          ></i>
-        </span>
-        <input
-          type="password"
-          id="repassword"
-          placeholder="Rewrite Password..."
-          value={repassword}
-          onChange={handleChangeRePassword}
-        />
-      </div>
-      <br />
-      <button type="submit" className="btn btn-large shadow-none submit-button">
-        Signup
-      </button>
-    </form>
+    </div>
   );
 }
 

@@ -16,37 +16,40 @@ function EditingForm({ initialText, initialUrl, itemId, toggleIsEditing }) {
     toggleIsEditing();
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mt-3">
-        <TextField
-          id="text"
-          label="Title"
-          variant="outlined"
-          size="small"
-          type="text"
-          value={text}
-          onChange={setText}
-          className="mb-3"
-          color="dark"
-        />
-      </div>
-      <div className="">
-        {/* <label htmlFor="url">Url</label>
+    <div className="row d-flex justify-content-center">
+      <form onSubmit={handleSubmit}>
+        <div className="">
+          <TextField
+            id="text"
+            label="Title"
+            variant="outlined"
+            size="small"
+            type="text"
+            value={text}
+            onChange={setText}
+            className="mb-3"
+            color="dark"
+            fullWidth
+          />
+        </div>
+        <div className="">
+          {/* <label htmlFor="url">Url</label>
         <input type="url" name="url" id="url" value={url} onChange={setUrl} /> */}
-        <TextField
-          id="url"
-          label="Link"
-          variant="outlined"
-          size="small"
-          type="url"
-          value={url}
-          onChange={setUrl}
-          className="mb-3"
-          color="dark"
-        />
-      </div>
-      <button className="btn btn-large submit-button">Edit</button>
-    </form>
+          <TextField
+            id="url"
+            label="Link"
+            variant="outlined"
+            size="small"
+            type="url"
+            value={url}
+            onChange={setUrl}
+            color="dark"
+            fullWidth
+          />
+        </div>
+        <button className="btn btn-small submit-button">Edit</button>
+      </form>
+    </div>
   );
 }
 

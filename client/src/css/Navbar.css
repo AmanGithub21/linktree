@@ -1,23 +1,39 @@
-.navbar {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    /* not working stretch*/
-    align-content: space-around;
-    padding-left: 2rem;
-    background-color: #ccc3c3;
+.custom-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 75%;
+  margin: 1.25rem auto;
 }
 
-.brand-name {
-    font-size: 1.5rem;
-    cursor: pointer;
+.custom-navbar > * {
+  margin: auto 0;
 }
 
-.nav-item-container {
-    list-style-type: none;
-    display: flex;
+.site-logo {
+  font-size: 3.5rem;
+  font-family: "Kaushan Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+  color: black;
+  cursor: pointer;
+  user-select: none;
 }
 
-.nav-item {
-    margin-left: 1rem;
+.nav-btn {
+  color: black;
+  font-size: 1.5rem;
+  font-family: "Karla";
+  margin-right: 2rem;
+  vertical-align: bottom;
+}
+
+@media screen and (max-width: 585px) {
+  .site-logo {
+    font-size: 2.5rem;
+  }
+  .nav-btn {
+    font-size: 1rem;
+    margin-right: 1rem;
+  }
 }

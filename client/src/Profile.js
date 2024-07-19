@@ -21,13 +21,19 @@ class Profile extends Component {
         {this.state.notFound ? (
           <PageNotFound />
         ) : (
-          <div>
-            <h1>{this.props.match.params.username}</h1>
-            {this.state.tree.map((item) => (
-              <div className="LinktreeListItem p-2">
-                <LinktreeListItem key={item._id} item={item} homePage={false} />
-              </div>
-            ))}
+          <div className=" d-flex justify-content-center">
+            <div className="col-lg-6 col-sm-10 col-10">
+              <h1>{this.props.match.params.username}</h1>
+              {this.state.tree.map((item) => (
+                <div className="LinktreeListItem p-2">
+                  <LinktreeListItem
+                    key={item._id}
+                    item={item}
+                    homePage={false}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

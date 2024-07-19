@@ -1,9 +1,9 @@
-import "./css/Navbar.css";
-
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { LogginContext } from "./Linktree";
+
+import "./css/Navbar.css";
 
 function Navbar() {
   const context = useContext(LogginContext);
@@ -15,22 +15,21 @@ function Navbar() {
     history.push("/");
   };
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#" style={{ fontSize: "30px" }}>
-        Linktree
-      </a>
-      <div style={{ marginLeft: "auto", marginRight: "20px" }}>
-        {!context.loggedIn ? (
-          <Link to="/">
-            <button class="btn btn-outline-light" type="submit">
-              Check In
-            </button>
-          </Link>
-        ) : (
-          <Link to="/" onClick={logout}>
-            <button class="btn btn-outline-light" type="submit">
-              Logout
-            </button>
+    <nav className="custom-navbar">
+      <Link to="/home" className="site-logo text-decoration-underline">
+        linktree
+      </Link>
+      <div className="nav-item-container">
+        <Link to="/about" className="nav-btn text-decoration-underline">
+          <span>About</span>
+        </Link>
+        {context.loggedIn && (
+          <Link
+            to="/"
+            onClick={logout}
+            className="nav-btn text-decoration-underline"
+          >
+            Logout
           </Link>
         )}
       </div>

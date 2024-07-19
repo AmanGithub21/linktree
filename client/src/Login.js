@@ -1,13 +1,16 @@
 import axios from "axios";
+import React from "react";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
-// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { TextField } from "@mui/material";
 
 import useHandleChange from "./hooks/useHandleChange";
 import { LogginContext } from "./Linktree";
 
-function Login() {
+import "./css/AuthForm.css";
+
+function Login({ toSignupForm }) {
   const context = useContext(LogginContext);
   const history = useHistory();
   const [username, handleChangeUsername, handleResetUsername] =
@@ -17,11 +20,20 @@ function Login() {
 
   const [isLoading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
-    console.log(isLoading);
-    setLoading(true);
     e.preventDefault();
+    console.log(username, password);
+    setLoading(true);
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve();
+      }, 500)
+    );
+    // console.log(isLoading);
     if (!username.length || !password.length) {
-      console.log(isLoading);
+      // console.log(isLoading);
+      handleResetUsername();
+      handleResetPassword();
+
       setLoading(false);
       return alert("Fill all the entries.");
     }
@@ -46,68 +58,80 @@ function Login() {
       window.sessionStorage.setItem("linktree", JSON.stringify(linktree.data));
       context.setLoggedIn(true);
       setLoading(false);
-      history.push("/home");
+      return history.push("/home");
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-field">
-        <span htmlFor="username">
-          <i
-            className="ri-account-circle-fill ml-2 mr-2"
-            style={{ fontSize: "1.5rem" }}
-          ></i>
-        </span>
-        <input
-          type="text"
-          id="username"
-          placeholder="Username..."
-          onChange={handleChangeUsername}
-        />
-      </div>
-      <br />
-      <div className="form-field">
-        <span htmlFor="password">
-          <i
-            className="ri-key-fill ml-2 mr-2"
-            style={{ fontSize: "1.5rem" }}
-          ></i>
-        </span>
-        <input
-          type="password"
-          id="password"
-          placeholder="Password..."
-          onChange={handleChangePassword}
-        />
-      </div>
-      <br />
-      <button
-        type="submit"
-        className={
-          `btn btn-large shadow-none submit-button w-100 ` +
-          (isLoading && "disable")
-        }
-      >
-        {isLoading ? (
-          <div className="spinner">
-            <Oval
-              height={20}
-              width={20}
-              color="#808080"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-              ariaLabel="oval-loading"
-              secondaryColor="white"
-              strokeWidth={5}
-              strokeWidthSecondary={5}
-            />
+    <div className="container">
+      <div className="row d-flex justify-content-center">
+        <form
+          onSubmit={handleSubmit}
+          className="col-lg-3 col-md-6 col-sm-10 col-10"
+        >
+          <TextField
+            id="username"
+            label="Identity"
+            variant="standard"
+            fullWidth
+            size="small"
+            type="text"
+            value={username}
+            onChange={handleChangeUsername}
+            className="form-field mb-3"
+            color="dark"
+          />
+          <TextField
+            id="password"
+            label="Password"
+            variant="standard"
+            fullWidth
+            type="text"
+            value={password}
+            onChange={handleChangePassword}
+            className="form-field"
+            color="dark"
+          />
+          <button
+            type="submit"
+            className={
+              `btn btn-large shadow-none submit-button ` +
+              (isLoading && "disable")
+            }
+          >
+            {isLoading ? (
+              <div className="spinner">
+                <Oval
+                  height={18}
+                  width={18}
+                  color="#808080"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="white"
+                  strokeWidth={5}
+                  strokeWidthSecondary={5}
+                />
+              </div>
+            ) : (
+              <span>Login</span>
+            )}
+          </button>
+          <div className="text-center">
+            <small>
+              {" "}
+              <span className="text-muted">Don't have account? </span>
+              <span
+                className="to-toggle-form-btn"
+                onClick={() => toSignupForm()}
+              >
+                Sign up for free
+              </span>
+            </small>
           </div>
-        ) : (
-          <span>Login</span>
-        )}
-      </button>
-    </form>
+        </form>
+      </div>
+    </div>
   );
 }
 

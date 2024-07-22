@@ -11,7 +11,7 @@ const linktreeRoutes = require("./routes/linktreeRoutes");
 const User = require("./models/User");
 const Linktree = require("./models/Linktree");
 const dbUrl = process.env.DB_URL;
-const port = pocess.env.PORT;
+const port = process.env.PORT;
 
 app.use(cors());
 

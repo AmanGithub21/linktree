@@ -13,7 +13,14 @@ const Linktree = require("./models/Linktree");
 const dbUrl = process.env.DB_URL;
 const port = process.env.PORT;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: true,
+    optionsSuccessStatus: 204,
+  })
+);
 
 mongoose
   .connect(dbUrl)
@@ -44,6 +51,10 @@ app.post("/profile/:username", async (req, res) => {
     console.log("ERROR IN app.js");
     return res.status(500).json(error.message);
   }
+});
+
+app.get("/test", async (req, res) => {
+  res.send("Test success");
 });
 
 app.listen(process.env.PORT, (req, res) => {

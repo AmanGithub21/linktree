@@ -21,7 +21,7 @@ function Login({ toSignupForm }) {
   const [isLoading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, password);
+    // console.log(username, password);
     setLoading(true);
     await new Promise((resolve) =>
       setTimeout(() => {
@@ -37,10 +37,21 @@ function Login({ toSignupForm }) {
       setLoading(false);
       return alert("Fill all the entries.");
     }
-    const res = await axios.post("http://localhost:8080/account/login", {
-      username,
-      password,
-    });
+    console.log("sending request");
+    const res = await axios.post(
+      "http://linktree-ycwe.onrender.com/account/login",
+      {
+        username,
+        password,
+      },
+      {
+        headers: {
+          "content-type": "application/json",
+          accept: "*",
+        },
+      }
+    );
+    console.log("res", res);
     if (
       res.data === "incorrect password" ||
       res.data === "user dose not exist"
@@ -53,7 +64,7 @@ function Login({ toSignupForm }) {
       window.sessionStorage.setItem("userdata", JSON.stringify(res.data));
 
       const linktree = await axios.post(
-        `http://localhost:8080/linktree/${res.data._id}`
+        `http://linktree-ycwe.onrender.com/linktree/${res.data._id}`
       );
       window.sessionStorage.setItem("linktree", JSON.stringify(linktree.data));
       context.setLoggedIn(true);

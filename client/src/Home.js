@@ -67,8 +67,11 @@ function Home() {
         <hr />
         <h5 className="plain-text">
           Your page is hosted at:{" "}
-          <a target="_blank" href={`http://localhost:3000/${username}`}>
-            {`http://localhost:3000/${username}`}
+          <a
+            target="_blank"
+            href={`https://linktree-4srt.onrender.com/${username}`}
+          >
+            {`https://linktree-4srt.onrender.com/${username}`}
           </a>
         </h5>
         {tree && tree.length && <LinktreeList />}

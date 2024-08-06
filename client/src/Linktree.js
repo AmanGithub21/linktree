@@ -23,19 +23,19 @@ function Linktree() {
         <Switch>
           <Route path="/about" exact render={() => <About />} />
           <Route
+            path="/home"
+            exact
+            render={() => (loggedIn ? <Home /> : <Redirect to={"/"} />)}
+          />
+          <Route
             path="/"
             exact
             render={() =>
               !loggedIn ? <AuthForm /> : <Redirect to={"/home"} />
             }
           />
-          <Route
-            path="/home"
-            exact
-            render={() => (loggedIn ? <Home /> : <Redirect to={"/"} />)}
-          />
           <Route path="/:username" component={Profile} />
-          <Route path="*" render={PageNotFound} />
+          <Route path="*" component={PageNotFound} />
         </Switch>
       </div>
     </LogginContext.Provider>

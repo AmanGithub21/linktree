@@ -39,7 +39,7 @@ function Login({ toSignupForm }) {
     }
     console.log("sending request");
     const res = await axios.post(
-      "http://linktree-ycwe.onrender.com/account/login",
+      "https://linktree-ycwe.onrender.com/account/login/",
       {
         username,
         password,
@@ -64,7 +64,7 @@ function Login({ toSignupForm }) {
       window.sessionStorage.setItem("userdata", JSON.stringify(res.data));
 
       const linktree = await axios.post(
-        `http://linktree-ycwe.onrender.com/linktree/${res.data._id}`
+        `https://linktree-ycwe.onrender.com/linktree/${res.data._id}`
       );
       window.sessionStorage.setItem("linktree", JSON.stringify(linktree.data));
       context.setLoggedIn(true);

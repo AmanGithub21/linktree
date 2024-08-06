@@ -24,7 +24,7 @@ function Signup({ toLoginForm }) {
       return alert("Fill all the entries.");
     if (repassword !== password) return alert("Rewrite the same password");
     const user = await axios.post(
-      "http://linktree-ycwe.onrender.com/account/signup",
+      "https://linktree-ycwe.onrender.com/account/signup",
       {
         username,
         password,
@@ -37,7 +37,7 @@ function Signup({ toLoginForm }) {
       window.sessionStorage.setItem("userdata", JSON.stringify(user.data));
 
       const linktree = await axios.post(
-        `http://linktree-ycwe.onrender.com/linktree/${user.data._id}`
+        `https://linktree-ycwe.onrender.com/linktree/${user.data._id}`
       );
       console.log(linktree, "linktree from the singup.js");
       window.sessionStorage.setItem("linktree", JSON.stringify(linktree.data));

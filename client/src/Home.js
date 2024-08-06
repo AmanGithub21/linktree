@@ -16,11 +16,14 @@ function Home() {
 
   const insertTreeData = async (text, url) => {
     if (!text.length || !url.length) return alert("Fill all the entries.");
-    const res = await axios.post("http://linktree-ycwe.onrender.com/linktree", {
-      userId: linktree.user,
-      text,
-      url,
-    });
+    const res = await axios.post(
+      "https://linktree-ycwe.onrender.com/linktree",
+      {
+        userId: linktree.user,
+        text,
+        url,
+      }
+    );
     window.sessionStorage.setItem("linktree", JSON.stringify(res.data));
     setTree(res.data.tree);
   };
@@ -30,11 +33,11 @@ function Home() {
       userId: linktree.user,
       treeId: itemId,
     };
-    await axios.delete("http://linktree-ycwe.onrender.com/linktree", {
+    await axios.delete("https://linktree-ycwe.onrender.com/linktree", {
       data,
     });
     const res = await axios.post(
-      `http://linktree-ycwe.onrender.com/linktree/${linktree.user}`
+      `https://linktree-ycwe.onrender.com/linktree/${linktree.user}`
     );
     window.sessionStorage.setItem("linktree", JSON.stringify(res.data));
     setTree(res.data.tree);
@@ -49,7 +52,7 @@ function Home() {
       url,
     };
     const res = await axios.put(
-      "http://linktree-ycwe.onrender.com/linktree",
+      "https://linktree-ycwe.onrender.com/linktree",
       data
     );
     window.sessionStorage.setItem("linktree", JSON.stringify(res.data));
